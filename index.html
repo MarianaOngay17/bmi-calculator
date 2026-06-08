@@ -14,36 +14,87 @@
 </head>
 <body>
 
-  Body Mass Index Calculator
+  <main id="bmi-calculator">
 
-  Better understand your weight in relation to your height using our 
-  body mass index (BM) calculator. While BMI is not the sole determinant 
-  of a healthy weight, it offers a valuable starting point to evaluate 
-  your overall health and well-being.
+    <section class="bmi-calculator__header">
+      <img src="assets/images/logo.svg" alt="" class="bmi-calculator__logo">
+      <h1 class="bmi-calculator__title"> Body Mass Index Calculator</h1>
+      <p class="bmi-calculator__description">Better understand your weight in relation to your height using our 
+          body mass index (BM) calculator. While BMI is not the sole determinant 
+          of a healthy weight, it offers a valuable starting point to evaluate 
+          your overall health and well-being.</p>
 
-  Enter your details below
+      <div class="calculator">
+        <h2>Enter your details below</h2>
 
-  Metric
-  Imperial
+        <div class="calculator__units">
 
-  Height
-  Weight
+          <div class="calculator__unit">
+            <input type="radio" id="metric" name="unitOption" value="Metric">
+            <label for="metric">Metric</label>
+          </div><!--.calculator__unit-->
+          <div class="calculator__unit">
+              <input type="radio" id="imperial" name="unitOption" value="Imperial">
+              <label for="imperial">Imperial</label>
+          </div><!--.calculator__unit-->
 
-  Your BMI is...
+        </div><!--.calculator__units-->
 
-  <!-- add score -->
+        <div class="calculator__height">
+          <label>Height</label>
+          <div class="calculator__inputBox">
+            <input type="number" aria-label="Type your height" class="calculator__input" id="height">
+            <span class="calculator__input-unit" id="height-unit">cm</span>
+          </div>
+        </div>
 
-  Your BMI suggests you're <!-- add classification -->. 
-  Your ideal weight is between <!-- add range -->.
+        <div class="calculator__weight">
+          <label>Weight</label>
+          <div class="calculator__inputBox">
+            <input type="number" aria-label="Type your weight" class="calculator__input" id="weigth">
+            <span class="calculator__input-unit" id="weight-unit">kg</span>
+          </div>
+        </div>
 
-  What your BMI result means
+        <div class="calculator__welcomeBox">
+          <h3>Welcome!</h3>
+          <p>Enter your height ans weight and you'll see yout BMI result here</p>
+        </div>
 
-  A BMI range of 18.5 to 24.9 is considered a 'healthy weight.' Maintaining a 
-  healthy weight may lower your chances of experiencing health issues later on, 
-  such as obesity and type 2 diabetes. Aim for a nutritious diet with reduced 
-  fat and sugar content, incorporating ample fruits and vegetables. Additionally, 
-  strive for regular physical activity, ideally about 30 minutes daily for 
-  five days a week.
+        <div class="calculator__resultBox">
+          <div class="calculator__data">
+            <p>Your BMI is...</p>
+            <span id="score">23.4</span>
+          </div>
+          <div class="calculator__explanation">
+            <p>Your BMI suggest you're <span id="bmi-classification">healty weight</span>.
+              Your ideal weight is between <span id="bmi-range-weight">63.3kgs - 82.2kgs</span>.
+            </p>
+          </div>
+        </div>
+
+      </div> <!--.calculator-->
+      
+    </section> <!--.bmi-calculator__header-->
+
+    <section class="meaning">
+      <img src="assets/images/image-man-eating.webp" alt="Man Eating">
+      <h2>What your BMI result means</h2>
+      <p id="bmi-meaning">  A BMI range of 18.5 to 24.9 is considered a 'healthy weight.' Maintaining a 
+        healthy weight may lower your chances of experiencing health issues later on, 
+        such as obesity and type 2 diabetes. Aim for a nutritious diet with reduced 
+        fat and sugar content, incorporating ample fruits and vegetables. Additionally, 
+        strive for regular physical activity, ideally about 30 minutes daily for 
+        five days a week.</p>
+    </section> <!--.meaning-->
+    
+
+  </main> <!--#bmi-calculator-->
+
+
+  
+
+
 
   Healthy eating
   Healthy eating promotes weight control, disease prevention, better digestion, 

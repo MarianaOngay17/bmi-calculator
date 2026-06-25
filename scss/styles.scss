@@ -2,4 +2,669 @@
 @use 'mixins' as m;
 @use 'sass:color';
 
+body{
+    margin: 0;
+    padding: 0;
+    font-family: v.$fuente_principal;
+    background-color: v.$White;
+}
 
+#bmi-calculator{
+    width: 100%;
+    position: relative;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(270deg, v.$Gradient2 30%, v.$White 100%);
+    padding: 2.5rem 1.5rem 0 1.5rem;
+    border-bottom-right-radius: 70px; 
+
+    width: 100%;
+    box-sizing: border-box;
+
+    @include m.desktop{
+        flex-direction: row;       
+        align-items: flex-start;    
+        justify-content: space-between;
+        
+        max-width: 1440px;          
+        margin: 0 auto;            
+        padding: 4.5rem 8.5rem 0 7.5rem;    
+        
+        border-bottom-left-radius: 0px; 
+        border-bottom-right-radius: 100px;
+        width: 70%;                
+        margin-left: 0;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 550px;
+        width: 100%;
+    }
+
+    &__logo{
+        @include m.desktop{
+            align-self: flex-start;
+            margin-bottom: 3rem;
+        }
+    }
+
+    &__title{
+        font-size: 3.2rem;
+        text-align: center;
+        color: v.$Blue900;
+
+        @include m.desktop{
+            text-align: left;
+            font-size: 3.5rem;
+        }
+    }
+
+    &__description{
+        margin: 0;
+        font-size: 1.2rem;
+        color: v.$Grey500;
+        text-align: center;
+        margin-bottom: 2.5rem;
+
+        @include m.desktop{
+            text-align: left;
+            width: 30rem;
+            align-self: flex-start;
+            font-size: 1rem;
+            margin-bottom: 10rem;
+        }
+    }
+}
+
+.calculator,
+.calculator *,
+.calculator *::before,
+.calculator *::after {
+    box-sizing: border-box;
+}
+
+.calculator{
+    background-color: v.$White;   
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+    width: 100%;
+    max-width: 500px; 
+    box-sizing: border-box;
+
+    position: relative;
+    margin-top: 1rem; 
+    margin-bottom: -6rem; 
+    z-index: 10;
+
+    @include m.tablet {
+        margin-top: 2.5rem;
+        margin-bottom: -6rem;
+    }
+
+    @include m.desktop{
+        max-width: 560px;           
+        position: absolute;       
+        right: 8.5rem;           
+        top: 5rem;               
+        margin: 0;
+    }
+
+    h2{
+        font-weight: v.$medium;
+        font-size: 1.5rem;
+    }
+
+    &__units{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        @include m.lessThanMobile{
+           grid-template-columns: 1fr;
+           gap: 1rem;
+        }
+
+    }
+
+    &__unit {
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+
+        width: 100%;
+
+        @include m.lessThanMobile{
+           grid-template-columns: 1fr;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: transparent;
+            margin: 0;
+            
+            // circulo contenedor
+            font: inherit;
+            color: v.$Blue500; 
+            width: 30px;
+            height: 30px;
+            border: 1px solid v.$Grey500; 
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+
+            // puntero interno azul
+            &::before {
+                content: "";
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                transform: scale(0); 
+                transition: 0.15s transform ease-in-out;
+                background-color: v.$Blue500; 
+            }
+
+            &:checked {
+                border-color: transparent; 
+                background-color: color.adjust(v.$Blue500, $alpha: -0.85); 
+
+                &::before {
+                    transform: scale(1); 
+                }
+            }
+
+            &:hover {
+                border-color: v.$Blue500;
+                background-color: color.adjust(v.$Blue500, $alpha: -0.92);
+            }
+
+            &:focus-visible {
+                outline: 2px solid v.$Blue500;
+                outline-offset: 2px;
+            }
+        }
+
+        label {
+            font-size: 1.1rem;
+            font-weight: v.$medium; 
+            color: v.$Blue900;
+            padding-left: 12px; 
+            cursor: pointer;
+            user-select: none;
+        }
+    }
+
+    &__dataContent{
+
+        &--metric{
+            @include m.desktop{
+                display: flex;
+                gap: 1rem;
+            }
+        }
+
+        &--imperial{
+            @include m.desktop{
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+    }
+
+    &__height,
+    &__weight{
+        margin-top: 1rem;
+        label{
+            color: v.$Grey500;
+        }
+    }
+
+    &__inputBox{
+        border: 1px solid v.$Grey500;
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 1rem 0;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        width: 100%;
+        
+    }
+
+    &__input{
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        border: none;
+
+        appearance: textfield;
+        -moz-appearance: textfield;
+
+        font-family: v.$fuente_principal;
+        font-size: 1rem;
+        font-weight: v.$bold;
+
+        width: 100%;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &:focus{
+            outline: none;
+        }
+
+    }
+
+    &__input-unit{
+        color: v.$Blue500;
+        font-weight: v.$bold;
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+    &__welcomeBox{
+        background-color: v.$Blue500;
+        color: v.$White;
+        padding: 2rem;
+        border-radius: 20px;
+        margin: 1.5rem 0;
+
+        @include m.tablet{
+            border-radius: 0px;
+            border-top-right-radius: 100px; 
+            border-bottom-right-radius: 100px; 
+
+            border-top-left-radius: 10px; 
+            border-bottom-left-radius: 10px; 
+
+            padding: 1.5rem;
+        }
+
+        h3{
+            margin: 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        p{
+            margin: 1rem 0;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+    }
+
+    &__resultBox{
+        background-color: v.$Blue500;
+        color: v.$White;
+        padding: 2rem;
+        border-radius: 20px;
+        margin: 1.5rem 0;
+
+        @include m.tablet{
+
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            align-items: center;
+            justify-content: space-between;
+
+            border-radius: 0px;
+            border-top-right-radius: 100px; 
+            border-bottom-right-radius: 100px; 
+
+            border-top-left-radius: 10px; 
+            border-bottom-left-radius: 10px; 
+
+            padding: 1.5rem;
+        }
+
+    }
+
+    &__data{
+        p{
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            font-weight: v.$medium;
+        }
+        span{
+            font-size: 3.5rem;
+            font-weight: v.$bold;
+        }
+    }
+
+    &__explanation{
+        p{
+            margin: 1rem 0;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        &--data{
+            font-weight: v.$bold;
+        }
+    }
+   
+}
+
+#imperial-height-box,
+#imperial-weight-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: 1rem 0;
+
+   .calculator__inputBox {
+        flex: 1; 
+        margin: 0; 
+        width: 100%; 
+    }
+
+    input {
+        width: 100%; 
+        min-width: 0; 
+    }
+
+    @include m.lessThanMobile{
+        flex-direction: column;
+    }
+}
+
+.meaning{
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 1rem;
+
+    padding-top: 5rem;
+    margin-top: 5rem; 
+
+    position: relative;
+
+    img{
+        width: 100%;
+    }
+
+    h2{
+       font-weight: v.$semibold;
+       font-size: 2rem; 
+       margin: 1rem 0;
+       padding: 1rem;
+    }
+
+    p{
+        margin: 0;
+        color: v.$Grey500;
+        line-height: 1.5;
+        padding: 1rem;
+    }
+
+    &__line{
+        display: none;
+        @include m.desktop{
+            display: block;
+            position: absolute;
+            width: 5rem !important; 
+            top: -3.5rem;
+            right: 5rem;
+        }
+        
+    }
+
+    @include m.tablet{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @include m.desktop{
+        grid-template-columns: 70 30;
+        gap: 8rem;
+        padding: 3rem;
+        margin: 3rem;
+
+        h2{
+            font-size: 3rem;
+        }
+    }
+
+}
+
+.suggestions{
+    margin-top: 3rem;
+    padding: 2rem;
+
+    @include m.desktop{
+        padding: 2rem 5rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    &__suggest{
+        margin: 2rem 0;
+
+        img{
+            margin: 0.5rem 0;
+        }
+
+        h3{
+            font-weight: v.$semibold;
+        }
+        p{
+            color: v.$Grey500;
+        }
+
+        @include m.tablet{
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @include m.desktop{
+            flex-direction: column;
+            gap: 0;
+            align-items: flex-start;
+        }
+    }
+
+}
+
+.limitations{
+    padding: 1.5rem;
+
+    &__title,
+    &__description{
+        text-align: center;
+    }
+
+    &__title{
+        font-size: 2rem;
+        font-weight: v.$semibold;
+        margin: 0;
+    }
+
+    &__description{
+        color: v.$Grey500;
+        line-height: 1.5;
+        margin: 1rem 0;
+    }
+
+    &__line{
+        display: none;
+        @include m.desktop{
+            display: block;
+            position: relative;
+            top: -28rem;
+            left: 7rem;
+        }
+    }
+
+    @include m.desktop {
+        display: grid;
+        // 12 columnas para distribuir todo el ancho del componente
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: auto;
+        gap: 2rem;
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 6rem 1.5rem;
+        align-items: start;
+        padding-bottom: 0;
+
+        // El bloque del encabezado ocupa el lado izquierdo de la pantalla
+        &__title {
+            grid-column: 1 / span 5;
+            grid-row: 1;
+            text-align: left;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        &__description {
+            grid-column: 1 / span 7;
+            grid-row: 1;
+            margin-top: 6rem; 
+            text-align: left;
+            max-width: 560px;
+        }
+    }
+
+    &__content{
+
+        @include m.tablet{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+
+            .limit:last-child {
+                grid-column: 1 / span 2; 
+                justify-self: center;  
+                
+                width: 100%; 
+                max-width: 340px;
+            }
+
+        }
+
+        @include m.desktop {
+            grid-column: 5 / span 8; 
+            grid-row: 1;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 2rem; 
+            align-items: start;
+
+            max-height: 650px;       
+            align-content: start;
+
+            .limit {
+                margin: 0; 
+                max-width: 100%;
+                height: auto;
+
+                // GENDER (Fila 1 - Derecha)
+                &:nth-child(1) {
+                    grid-column: 3 / span 2;
+                    grid-row: 1;
+                    margin-left: -4rem;
+                    margin-bottom: -4rem;
+                }
+
+                //AGE (Fila 2 - Centro/Izquierda)
+                &:nth-child(2) {
+                    grid-column: 1 / span 2;
+                    grid-row: 2;
+                    margin-top: 5rem;
+                    margin-left: -4rem; 
+                }
+
+                // MUSCLE (Fila 2 - Extremo Derecho)
+                &:nth-child(3) {
+                    grid-column: 3 / span 2;
+                    grid-row: 2;
+                    margin-top: 5rem;
+                    margin-left: -2rem; 
+                }
+
+                // PREGNANCY (Fila 3 - Centro/Izquierda)
+                &:nth-child(4) {
+                    grid-column: 1 / span 2;
+                    grid-row: 3;
+                    margin-left: -10rem;
+                }
+
+                // RACE (Fila 3 - Centro/Derecha)
+                &:nth-child(5) {
+                    grid-column: 3 / span 2;
+                    grid-row: 3;
+                    margin-left: -16rem;
+                }
+            }
+        }
+    }
+}
+
+.limit{
+
+    background-color: v.$White;
+    border-radius: 20px;
+    padding: 1rem;
+    box-shadow: rgba(225, 231, 254, 0.1) 0px 1px 1px 0px inset, rgba(52, 95, 246, 0.25) 0px 50px 100px -20px, rgba(225, 231, 254, 0.3) 0px 30px 60px -30px;
+    margin: 1rem 0;
+
+    &__header{
+        display: flex;
+        gap: 1rem;
+
+        h4{
+            font-weight: v.$semibold;
+            font-size: 1.2rem;
+        }
+    }
+
+    p{
+        color: v.$Grey500;
+        margin: 0.5rem 0;
+        line-height: 1.5;
+       
+    }
+}
+
+.hidden{
+    display: none !important;
+}
+
+.attribution{
+    margin-bottom: 0;
+    margin: 1rem 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: v.$Blue900;
+
+    a {
+        color: color.adjust(v.$Blue500, $lightness: -10%);
+
+        &:focus{
+            outline: 2px solid v.$Blue500;
+            outline-offset: 2px;
+        }
+    }
+
+}
